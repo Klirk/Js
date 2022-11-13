@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Menu from './components/Menu';
-import MenuBottom from "./components/Bottom_menu";
-import ErrorPath from "./components/Error";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Menu from './components/Menu'
+import MenuBottom from "./components/Profile"
+import ErrorPath from "./components/Error"
 
 function App() {
   return (
