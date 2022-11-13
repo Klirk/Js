@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState} from 'react'
 import { Link} from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
 import {
@@ -37,8 +37,7 @@ function classNames(...classes) {
 
 const Menu = () => {
 
-  const [name, setName] = useState("")
-
+  const [username, setName] = useState('')
   return (
     <Popover className="relative bg-white">
       <div className="min-h-full mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
@@ -141,12 +140,13 @@ const Menu = () => {
              id="name"
              className='ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border-2 border-red-600 px-4 py-2 text-base font-medium shadow-sm focus: outline-red-900'
              placeholder='Username'
-             value={name} onChange={(e) => setName(e.target.value)}
+             value={username} onChange={(e) =>setName(e.target.value)}
             ></input>
             <nav>
             <Link
-              to="/#"
+              to="/profile"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border-2 border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
+              state={{data : username}}
             >
               Sign up
             </Link>
