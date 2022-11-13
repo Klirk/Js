@@ -1,5 +1,5 @@
-import { Fragment } from 'react'
-import { BrowserRouter, Link} from 'react-router-dom';
+import { Fragment, useState } from 'react'
+import { Link} from 'react-router-dom';
 import { Popover, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -35,21 +35,27 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Menu() {
+const Menu = () => {
+
+  const [name, setName] = useState("")
+
   return (
-    <BrowserRouter>
     <Popover className="relative bg-white">
       <div className="min-h-full mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between border-b-2 border-red-100 py-6 md:justify-start">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link to="/#">
-              <span className="sr-only">Your Company</span>
+          <nav>
+            <Link 
+            
+            to="/#">
+              <span className="sr-only">2048</span>
               <img
                 className="h-8 w-auto sm:h-10"
                 src="https://upload.wikimedia.org/wikipedia/commons/8/8a/2048_logo.png"
                 alt=""
               />
             </Link>
+            </nav>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
             <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-red-400 hover:bg-red-100 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500">
@@ -58,14 +64,21 @@ export default function Menu() {
             </Popover.Button>
           </div>
           <Popover.Group as="nav" className="hidden space-x-5 md:flex">
-            <Link to="/profile" className="text-base font-medium text-red-500 hover:text-red-900">
+          <nav>
+            <Link 
+            to="/profile" 
+            className="text-base font-medium text-red-500 hover:text-red-900"
+            key='Profile'>
               Profile
             </Link>
+          </nav>
+          <nav>
             <Link 
             to="/#" 
             className="text-base font-medium text-red-500 hover:text-red-900">
             LeaderBoard
             </Link>
+          </nav>
 
             <Popover className="relative">
               {({ open }) => (
@@ -99,6 +112,7 @@ export default function Menu() {
                       <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {resources.map((item) => (
+                            <nav>
                             <Link
                               key={item.name}
                               to={item.to}
@@ -110,6 +124,7 @@ export default function Menu() {
                                 <p className="mt-1 text-sm text-red-500">{item.description}</p>
                               </div>
                             </Link>
+                            </nav>
                           ))}
                         </div>
                       </div>
@@ -126,13 +141,16 @@ export default function Menu() {
              id="name"
              className='ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border-2 border-red-600 px-4 py-2 text-base font-medium shadow-sm focus: outline-red-900'
              placeholder='Username'
+             value={name} onChange={(e) => setName(e.target.value)}
             ></input>
+            <nav>
             <Link
               to="/#"
               className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border-2 border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
             >
               Sign up
             </Link>
+            </nav>
           </div>
         </div>
       </div>
@@ -168,13 +186,16 @@ export default function Menu() {
             </div>
             <div className="space-y-6 py-6 px-5">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+              <nav>
                 <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
                   Profile
                 </Link>
-
+                </nav>
+                <nav>
                 <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
                   Leader Board
                 </Link>
+                </nav>
                 {resources.map((item) => (
                   <Link
                     key={item.name}
@@ -186,17 +207,21 @@ export default function Menu() {
                 ))}
               </div>
               <div>
+              <nav>
                 <Link
                   to="#"
                   className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
                 >
                   Sign up
                 </Link>
+                </nav>
                 <p className="mt-6 text-center text-base font-medium text-red-500">
                   Existing customer?{' '}
+                  <nav>
                   <Link to="/#" className="text-red-600 hover:text-red-500">
                     Sign in
                   </Link>
+                  </nav>
                 </p>
               </div>
             </div>
@@ -204,6 +229,6 @@ export default function Menu() {
         </Popover.Panel>
       </Transition>
     </Popover>
-    </BrowserRouter>
   )
 }
+export default Menu

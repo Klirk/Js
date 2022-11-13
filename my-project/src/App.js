@@ -6,16 +6,14 @@ import ErrorPath from "./components/Error";
 function App() {
   return (
     <div className="App App-header">
-      <Menu />
       <BrowserRouter>
+      <Menu/>
         <Routes>
           <Route path='/' element={<></>}/>
-          <Route path='/profile' element={<><MenuBottom /></>}/>
+          <Route path='/profile' element={<><MenuBottom/></>}/>
           <Route path='*' element={<><ErrorPath/><MenuBottom /></>}/>
         </Routes>
       </BrowserRouter>
-
-    
     </div>
   );
 }
