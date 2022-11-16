@@ -67,6 +67,14 @@ const Menu = () => {
             to="/profile" 
             className="text-base font-medium text-red-500 hover:text-red-900"
             key='Profile'>
+              Game
+            </Link>
+          </nav>
+          <nav>
+            <Link 
+            to="/profile" 
+            className="text-base font-medium text-red-500 hover:text-red-900"
+            key='Profile'>
               Profile
             </Link>
           </nav>
@@ -184,6 +192,11 @@ const Menu = () => {
             </div>
             <div className="space-y-6 py-6 px-5 md:px-10">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
+              <nav>
+                <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
+                  Game
+                </Link>
+                </nav>
               <nav>
                 <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
                   Profile

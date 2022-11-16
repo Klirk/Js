@@ -13,9 +13,43 @@
   ```
 */
 import { LockClosedIcon } from '@heroicons/react/20/solid'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-
+import axios from 'axios';
 export default function SignUp() {
+
+  const[name,setName] = useState()
+  const[password,setPassword] = useState()
+  const[cPassword,setCPassword] = useState()
+  const getName = (value) =>{
+    setName(value)
+  }
+  const getPassword = (value) =>{
+    setPassword(value)
+  }
+  const getCPassword = (value) =>{
+    setCPassword(value)
+  }
+
+  const postSignUp = (event) =>{
+    event.preventDefault();
+
+    const user = {
+      UserName: name,
+      Password: password,
+      ConfirmPassword: cPassword,
+      IdType: 2
+    };
+
+    axios.post(`https://localhost:7278/api/Auth/SignUp`, user )
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+  }
+
+
+
   return (
     <>
       {/*
@@ -54,6 +88,7 @@ export default function SignUp() {
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="User Name"
+                  onChange={(e) => getName(e.target.value)}
                 />
               </div>
               <div>
@@ -68,6 +103,7 @@ export default function SignUp() {
                   required
                   className="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Password"
+                  onChange={(e) => getPassword(e.target.value)}
                 />
               </div>
               <div>
@@ -82,6 +118,7 @@ export default function SignUp() {
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Password confirmation"
+                  onChange={(e) => getCPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -89,6 +126,7 @@ export default function SignUp() {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={(e) => postSignUp(e)}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
