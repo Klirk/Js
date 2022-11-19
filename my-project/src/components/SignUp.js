@@ -14,24 +14,25 @@
 */
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios';
-export default function SignUp() {
 
-  const[name,setName] = useState()
-  const[password,setPassword] = useState()
-  const[cPassword,setCPassword] = useState()
-  const getName = (value) =>{
+export default function SignUp() {
+  const [shouldRedirect, setRedirect] = useState(false)
+  const [name, setName] = useState()
+  const [password, setPassword] = useState()
+  const [cPassword, setCPassword] = useState()
+  const getName = (value) => {
     setName(value)
   }
-  const getPassword = (value) =>{
+  const getPassword = (value) => {
     setPassword(value)
   }
-  const getCPassword = (value) =>{
+  const getCPassword = (value) => {
     setCPassword(value)
   }
 
-  const postSignUp = (event) =>{
+  const postSignUp = async (event) => {
     event.preventDefault();
 
     const user = {
@@ -40,12 +41,21 @@ export default function SignUp() {
       ConfirmPassword: cPassword,
       IdType: 2
     };
-
-    axios.post(`https://localhost:7278/api/Auth/SignUp`, user )
+    axios.post(`https://localhost:7278/api/Auth/SignUp`, user)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        localStorage.setItem('Registration', res.data.isSuccess)
+      }).then(() => {
+        if (localStorage.Registration === 'true') {
+          localStorage.removeItem('Registration')
+          setRedirect(true)
+        }
+        else{
+          localStorage.removeItem('Registration')
+          window.location.reload()
+        }
+        
       })
+      return 
   }
 
 
@@ -71,7 +81,7 @@ export default function SignUp() {
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
               Create your account
             </h2>
-           
+
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
@@ -107,10 +117,10 @@ export default function SignUp() {
                 />
               </div>
               <div>
-              <label htmlFor="password" className="sr-only">
+                <label htmlFor="password" className="sr-only">
                   Password confirmation
                 </label>
-              <input
+                <input
                   id="password_confirmation"
                   name="password_confirmation"
                   type="password"
@@ -133,11 +143,12 @@ export default function SignUp() {
                 </span>
                 Sign Up
               </button>
+              {shouldRedirect ? <Navigate to="/signin" replace={true}/>: null}
             </div>
             <div className="flex items-center justify-end">
-                <p className='pr-2'>
-                    Already have an account?
-                </p>
+              <p className='pr-2'>
+                Already have an account?
+              </p>
               <div className="text-sm">
                 <Link to="/signin" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Sign In

@@ -1,11 +1,12 @@
+import { Navigate } from "react-router-dom";
 export default function Profile() {
-  const name = ''
+  const shouldRedirect = false;
   return (
-    <>
+    
       <div className="min-h-full">
         <header className="bg-white shadow">
           <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-           { name ?  <h1 className="text-3xl font-bold tracking-tight text-gray-900">{name}</h1> : <h1 className="text-3xl font-bold tracking-tight text-gray-900">NoName</h1>}
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">{localStorage.AuthData}</h1>
           </div>
         </header>
         <main>
@@ -17,7 +18,7 @@ export default function Profile() {
             {/* /End replace */}
           </div>
         </main>
+        
       </div>
-    </>
   )
 }

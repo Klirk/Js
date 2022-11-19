@@ -1,5 +1,5 @@
-import { Fragment} from 'react'
-import { Link} from 'react-router-dom'
+import { Fragment, useState } from 'react'
+import { Link, Navigate } from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -35,24 +35,32 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
+
+
 const Menu = () => {
+
+  const clearAuth = async () =>{
+     localStorage.clear()
+     await window.location.reload()
+  }
 
   return (
     <Popover className="relative bg-white">
       <div className="min-h-full mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between border-b-2 border-red-100 py-6 md:justify-start">
           <div className="flex justify-start lg:w-0 flex-1">
-          <nav>
-            <Link 
-            
-            to="/#">
-              <span className="sr-only">2048</span>
-              <img
-                className="h-8 w-auto sm:h-10"
-                src="https://upload.wikimedia.org/wikipedia/commons/8/8a/2048_logo.png"
-                alt=""
-              />
-            </Link>
+            <nav>
+              <Link
+
+                to="/#">
+                <span className="sr-only">2048</span>
+                <img
+                  className="h-8 w-auto sm:h-10"
+                  src="https://upload.wikimedia.org/wikipedia/commons/8/8a/2048_logo.png"
+                  alt=""
+                />
+              </Link>
             </nav>
           </div>
           <div className="-my-2 -mr-2 md:hidden">
@@ -62,29 +70,30 @@ const Menu = () => {
             </Popover.Button>
           </div>
           <Popover.Group as="nav" className="hidden space-x-5 md:flex">
-          <nav>
-            <Link 
-            to="/profile" 
-            className="text-base font-medium text-red-500 hover:text-red-900"
-            key='Profile'>
-              Game
-            </Link>
-          </nav>
-          <nav>
-            <Link 
-            to="/profile" 
-            className="text-base font-medium text-red-500 hover:text-red-900"
-            key='Profile'>
-              Profile
-            </Link>
-          </nav>
-          <nav>
-            <Link 
-            to="/#" 
-            className="text-base font-medium text-red-500 hover:text-red-900">
-            Leaders
-            </Link>
-          </nav>
+            <nav>
+              <Link
+                to="/profile"
+                className="text-base font-medium text-red-500 hover:text-red-900"
+                key='Profile'>
+                Game
+              </Link>
+            </nav>
+            <nav>
+              <Link
+                to={localStorage.AuthData === undefined ? '/' : '/profile/' + localStorage.AuthData}
+                className="text-base font-medium text-red-500 hover:text-red-900"
+                key='Profile'>
+                Profile
+              </Link>
+
+            </nav>
+            <nav>
+              <Link
+                to="/#"
+                className="text-base font-medium text-red-500 hover:text-red-900">
+                Leaders
+              </Link>
+            </nav>
 
             <Popover className="relative">
               {({ open }) => (
@@ -119,17 +128,17 @@ const Menu = () => {
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {resources.map((item) => (
                             <nav>
-                            <Link
-                              key={item.name}
-                              to={item.to}
-                              className="-m-3 flex items-start rounded-lg p-3 hover:bg-red-50"
-                            >
-                              <item.icon className="h-6 w-6 flex-shrink-0 text-red-600" aria-hidden="true" />
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-red-900">{item.name}</p>
-                                <p className="mt-1 text-sm text-red-500">{item.description}</p>
-                              </div>
-                            </Link>
+                              <Link
+                                key={item.name}
+                                to={item.to}
+                                className="-m-3 flex items-start rounded-lg p-3 hover:bg-red-50"
+                              >
+                                <item.icon className="h-6 w-6 flex-shrink-0 text-red-600" aria-hidden="true" />
+                                <div className="ml-4">
+                                  <p className="text-base font-medium text-red-900">{item.name}</p>
+                                  <p className="mt-1 text-sm text-red-500">{item.description}</p>
+                                </div>
+                              </Link>
                             </nav>
                           ))}
                         </div>
@@ -141,22 +150,39 @@ const Menu = () => {
             </Popover>
           </Popover.Group>
           <div htmlFor='name' className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-          <Link
-              to="/signin"
-              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-              
-            >
-              Sign in
-            </Link>
-            <nav>
-            <Link
-              to="/signup"
-              className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border-2 border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
-              
-            >
-              Sign up
-            </Link>
-            </nav>
+            {localStorage.AuthData === undefined ?
+              <nav>
+                <Link
+                  to="/signin"
+                  className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+
+                >
+                  Sign in
+                </Link>
+
+                <Link
+                  to="/signup"
+                  className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border-2 border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
+
+                >
+                  Sign up
+                </Link>
+              </nav> :
+              <nav>
+                <img
+                  className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                  src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  alt="" />
+                <Link
+                  onClick={() => clearAuth()}
+                  to="/"
+                  className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border-2 border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
+
+                >
+                  Log out
+                </Link>
+              </nav>
+            }
           </div>
         </div>
       </div>
@@ -188,24 +214,24 @@ const Menu = () => {
                   </Popover.Button>
                 </div>
               </div>
-              
+
             </div>
             <div className="space-y-6 py-6 px-5 md:px-10">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-              <nav>
-                <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
-                  Game
-                </Link>
-                </nav>
-              <nav>
-                <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
-                  Profile
-                </Link>
+                <nav>
+                  <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
+                    Game
+                  </Link>
                 </nav>
                 <nav>
-                <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
-                  Leaders
-                </Link>
+                  <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
+                    Profile
+                  </Link>
+                </nav>
+                <nav>
+                  <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
+                    Leaders
+                  </Link>
                 </nav>
                 {resources.map((item) => (
                   <Link
@@ -218,20 +244,20 @@ const Menu = () => {
                 ))}
               </div>
               <div>
-              <nav>
-                <Link
-                  to="#"
-                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
-                >
-                  Sign up
-                </Link>
+                <nav>
+                  <Link
+                    to="#"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
+                  >
+                    Sign up
+                  </Link>
                 </nav>
                 <p className="mt-6 text-center text-base font-medium text-red-500">
                   Existing customer?{' '}
                   <nav>
-                  <Link to="/#" className="text-red-600 hover:text-red-500">
-                    Sign in
-                  </Link>
+                    <Link to="/#" className="text-red-600 hover:text-red-500">
+                      Sign in
+                    </Link>
                   </nav>
                 </p>
               </div>

@@ -13,22 +13,22 @@
   ```
 */
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { Link } from 'react-router-dom'
+import { Link,Navigate, redirect} from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios';
 
-export default function SignIn() {
-
-  const[name,setName] = useState()
-  const[password,setPassword] = useState()
-  const getName = (e) =>{
+export default function  SignIn() {
+  const [shouldRedirect, setRedirect] = useState()
+  const [name, setName] = useState()
+  const [password, setPassword] = useState()
+  const getName = (e) => {
     setName(e)
   }
-  const getPassword = (e) =>{
+  const getPassword = (e) => {
     setPassword(e)
   }
 
-  const postSignIn = (event) =>{
+  const  postSignIn = (event) => {
     event.preventDefault();
 
     const user = {
@@ -36,15 +36,26 @@ export default function SignIn() {
       Password: password,
     };
 
-    axios.post(`https://localhost:7278/api/Auth/SignIn`, user )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
+    axios.post(`https://localhost:7278/api/Auth/SignIn`, user)
+      .then(res =>  {
+        localStorage.setItem('Auth', res.data.isSuccess)
+        if (localStorage.Auth === 'true') {
+          localStorage.setItem('AuthData', user.UserName)
+          window.location.reload()
+        }
+        else {
+          localStorage.removeItem('AuthData')
+          
+        }
       })
+
+      
+
   }
 
   return (
     <>
+    {shouldRedirect && <Navigate to="/" replace={true}/>}
       {/*
         This example requires updating your template:
 
@@ -62,7 +73,7 @@ export default function SignIn() {
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                Log in to your account
+              Log in to your account
             </h2>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
@@ -104,7 +115,7 @@ export default function SignIn() {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={(e) => postSignIn(e) }
+                onClick={(e) => postSignIn(e)}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
@@ -113,9 +124,9 @@ export default function SignIn() {
               </button>
             </div>
             <div className="flex items-center justify-end">
-                <p className='pr-2'>
-                    Don't have an account?
-                </p>
+              <p className='pr-2'>
+                Don't have an account?
+              </p>
               <div className="text-sm">
                 <Link to="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Sign Up
@@ -125,6 +136,7 @@ export default function SignIn() {
           </form>
         </div>
       </div>
+      
     </>
   )
 }
