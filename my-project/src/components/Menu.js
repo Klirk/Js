@@ -40,9 +40,9 @@ function classNames(...classes) {
 
 const Menu = () => {
 
-  const clearAuth = async () =>{
-     localStorage.clear()
-     await window.location.reload()
+  const clearAuth = async () => {
+    localStorage.clear()
+    window.location.reload()
   }
 
   return (
@@ -57,7 +57,7 @@ const Menu = () => {
                 <span className="sr-only">2048</span>
                 <img
                   className="h-8 w-auto sm:h-10"
-                  src="https://upload.wikimedia.org/wikipedia/commons/8/8a/2048_logo.png"
+                  src="https://i.imgur.com/A5t9RHJ.jpg"
                   alt=""
                 />
               </Link>
@@ -72,10 +72,10 @@ const Menu = () => {
           <Popover.Group as="nav" className="hidden space-x-5 md:flex">
             <nav>
               <Link
-                to="/profile"
+                to="/anime"
                 className="text-base font-medium text-red-500 hover:text-red-900"
-                key='Profile'>
-                Game
+                key='Anime'>
+                Anime
               </Link>
             </nav>
             <nav>
@@ -171,7 +171,7 @@ const Menu = () => {
               <nav>
                 <img
                   className="inline-block h-10 w-10 rounded-full ring-2 ring-white"
-                  src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  src="https://i.imgur.com/A5t9RHJ.jpg"
                   alt="" />
                 <Link
                   onClick={() => clearAuth()}
@@ -203,7 +203,7 @@ const Menu = () => {
                 <div>
                   <img
                     className="h-8 w-auto"
-                    src="https://upload.wikimedia.org/wikipedia/commons/8/8a/2048_logo.png"
+                    src="https://i.imgur.com/A5t9RHJ.jpg"
                     alt="Your Company"
                   />
                 </div>
@@ -219,8 +219,8 @@ const Menu = () => {
             <div className="space-y-6 py-6 px-5 md:px-10">
               <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                 <nav>
-                  <Link to="/#" className="text-base font-medium text-red-900 hover:text-red-700">
-                    Game
+                  <Link to="/Anime" className="text-base font-medium text-red-900 hover:text-red-700">
+                    Anime
                   </Link>
                 </nav>
                 <nav>

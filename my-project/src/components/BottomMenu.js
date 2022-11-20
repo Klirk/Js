@@ -11,7 +11,7 @@ const BottomMenu = () => {
               <span className="sr-only">2048</span>
               <img
                 className="h-5"
-                src="https://upload.wikimedia.org/wikipedia/commons/8/8a/2048_logo.png"
+                src="https://i.imgur.com/A5t9RHJ.jpg"
                 alt=""
                 />
                 
@@ -20,15 +20,15 @@ const BottomMenu = () => {
          
           <nav>
             <Link 
-            to="/profile" 
+            to="/anime" 
             className="text-base font-medium text-red-500 hover:text-red-900"
-            key='Profile'>
-              Game
+            key='Anime'>
+              Anime
             </Link>
           </nav>
           <nav>
             <Link 
-            to="/profile" 
+            to={localStorage.AuthData === undefined ? '/' : '/profile/' + localStorage.AuthData}
             className="text-base font-medium text-red-500 hover:text-red-900"
             key='Profile'>
               Profile

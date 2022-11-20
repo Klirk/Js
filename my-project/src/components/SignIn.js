@@ -13,11 +13,11 @@
   ```
 */
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { Link,Navigate, redirect} from 'react-router-dom'
+import { Link, Navigate, redirect } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios';
 
-export default function  SignIn() {
+export default function SignIn() {
   const [shouldRedirect, setRedirect] = useState()
   const [name, setName] = useState()
   const [password, setPassword] = useState()
@@ -28,7 +28,7 @@ export default function  SignIn() {
     setPassword(e)
   }
 
-  const  postSignIn = (event) => {
+  const postSignIn = (event) => {
     event.preventDefault();
 
     const user = {
@@ -37,25 +37,27 @@ export default function  SignIn() {
     };
 
     axios.post(`https://localhost:7278/api/Auth/SignIn`, user)
-      .then(res =>  {
+      .then(res => {
         localStorage.setItem('Auth', res.data.isSuccess)
         if (localStorage.Auth === 'true') {
           localStorage.setItem('AuthData', user.UserName)
-          window.location.reload()
+
         }
         else {
           localStorage.removeItem('AuthData')
-          
+
         }
+      }).then(() => {
+        window.location.reload()
       })
 
-      
+
 
   }
 
   return (
     <>
-    {shouldRedirect && <Navigate to="/" replace={true}/>}
+      {shouldRedirect && <Navigate to="/" replace={true} />}
       {/*
         This example requires updating your template:
 
@@ -69,7 +71,7 @@ export default function  SignIn() {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src="https://i.imgur.com/A5t9RHJ.jpg"
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -89,7 +91,7 @@ export default function  SignIn() {
                   type="name"
                   autoComplete="email"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"
                   placeholder="User name"
                   onChange={(e) => getName(e.target.value)}
                 />
@@ -104,7 +106,7 @@ export default function  SignIn() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"
                   placeholder="Password"
                   onChange={(e) => getPassword(e.target.value)}
                 />
@@ -114,11 +116,11 @@ export default function  SignIn() {
             <div>
               <button
                 type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="group relative flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 onClick={(e) => postSignIn(e)}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+                  <LockClosedIcon className="h-5 w-5 text-red-300 group-hover:text-red-400" aria-hidden="true" />
                 </span>
                 Sign in
               </button>
@@ -128,7 +130,7 @@ export default function  SignIn() {
                 Don't have an account?
               </p>
               <div className="text-sm">
-                <Link to="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <Link to="/signup" className="font-medium text-red-600 hover:text-red-500">
                   Sign Up
                 </Link>
               </div>
@@ -136,7 +138,7 @@ export default function  SignIn() {
           </form>
         </div>
       </div>
-      
+
     </>
   )
 }
