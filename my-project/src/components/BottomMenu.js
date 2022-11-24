@@ -8,7 +8,7 @@ const BottomMenu = () => {
       <div className=" mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between border-t-2 border-red-100 py-6 md:justify-start space-x-5">
           <div className="flex-1 flex space-x-5">
-              <span className="sr-only">2048</span>
+              <span className="sr-only">AnimeList</span>
               <img
                 className="h-5"
                 src="https://i.imgur.com/A5t9RHJ.jpg"
@@ -17,7 +17,13 @@ const BottomMenu = () => {
                 
                 <div className='hidden justify-start md:flex'>© 2022 Klirk, Inc.</div>
           </div>
-         
+          <nav>
+            <Link 
+            to="/#" 
+            className="text-base font-medium text-red-500 hover:text-red-900">
+            Main
+            </Link>
+          </nav>
           <nav>
             <Link 
             to="/anime" 
@@ -32,13 +38,6 @@ const BottomMenu = () => {
             className="text-base font-medium text-red-500 hover:text-red-900"
             key='Profile'>
               Profile
-            </Link>
-          </nav>
-          <nav>
-            <Link 
-            to="/#" 
-            className="text-base font-medium text-red-500 hover:text-red-900">
-            Leaders
             </Link>
           </nav>
           <nav>

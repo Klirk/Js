@@ -1,24 +1,10 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios';
 
 export default function SignUp() {
-  const [shouldRedirect, setRedirect] = useState(false)
+  const [shouldRedirect, setRedirect] = useState()
   const [name, setName] = useState()
   const [password, setPassword] = useState()
   const [cPassword, setCPassword] = useState()
@@ -73,19 +59,18 @@ export default function SignUp() {
       })
       return 
   }
-
+  useEffect(() => {
+    checkRedirect();
+  });
+  
+  const checkRedirect = () => {
+      setRedirect(localStorage.AuthData === undefined ? false : true)
+  }
 
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
+    {shouldRedirect && <Navigate replace to={'/profile/' + localStorage.AuthData}/>}
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
@@ -159,7 +144,6 @@ export default function SignUp() {
                 </span>
                 Sign Up
               </button>
-              {shouldRedirect ? <Navigate to="/signin" replace={true}/>: null}
             </div>
             <div className="flex items-center justify-end">
               <p className='pr-2'>

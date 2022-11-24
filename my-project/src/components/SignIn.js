@@ -1,20 +1,6 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { Link, Navigate, redirect } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, Navigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import axios from 'axios';
 
 export default function SignIn() {
@@ -34,14 +20,13 @@ export default function SignIn() {
     const user = {
       UserName: name,
       Password: password,
-    };
-
+    }
     axios.post(`https://localhost:7278/api/Auth/SignIn`, user)
-      .then(res => {
+      .then(async (res) => {
         localStorage.setItem('Auth', res.data.isSuccess)
         if (localStorage.Auth === 'true') {
           localStorage.setItem('AuthData', user.UserName)
-
+          localStorage.setItem('AuthId', res.data.id_user)
         }
         else {
           localStorage.removeItem('AuthData')
@@ -50,14 +35,18 @@ export default function SignIn() {
       }).then(() => {
         window.location.reload()
       })
+  }
+  useEffect(() => {
+    checkRedirect();
+  });
 
-
-
+  const checkRedirect = () => {
+    setRedirect(localStorage.AuthData === undefined ? false : true)
   }
 
   return (
     <>
-      {shouldRedirect && <Navigate to="/" replace={true} />}
+      {shouldRedirect && <Navigate replace to={'/profile/' + localStorage.AuthData} />}
       {/*
         This example requires updating your template:
 

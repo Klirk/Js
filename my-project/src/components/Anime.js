@@ -1,16 +1,19 @@
-const products = [
-    {
-        id: 1,
-        name: 'Basic Tee',
-        href: '#',
-        imageAlt: "Front of men's Basic Tee in black.",
-        price: '$35',
-        color: 'Black',
-    },
-    // More products...
-]
-
+import axios from "axios";
+import { useState, useEffect } from "react";
 export default function Anime() {
+
+    const [animes, setAnimes] = useState([])
+
+    useEffect(() => {
+        loadAnimes();
+    }, []);
+
+    const loadAnimes = async () => {
+
+        axios.get(`https://localhost:7278/api/Anime`)
+            .then(res => setAnimes(res.data))
+            .catch(error => console.log(error))
+    }
 
     return (
         <div className="flex flex-col mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
@@ -24,122 +27,109 @@ export default function Anime() {
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        ID
+                                        Anime Name
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Name
+                                        Rated
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Email
+                                        Epsodes
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Edit
+                                        Relise Date
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase "
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Delete
+                                        Type
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                                    >
+                                        Age Rating
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                                    >
+                                        Status
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                                    >
+                                        Season
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
+                                    >
+                                        Genres
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200">
-                                <tr>
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        1
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        Jone Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        jonne62@gmail.com
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-green-500 hover:text-green-700"
-                                            href="#"
-                                        >
-                                            Edit
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-red-500 hover:text-red-700"
-                                            href="#"
-                                        >
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        2
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        Jone Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        jonne62@gmail.com
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-green-500 hover:text-green-700"
-                                            href="#"
-                                        >
-                                            Edit
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-red-500 hover:text-red-700"
-                                            href="#"
-                                        >
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap">
-                                        3
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        Jone Doe
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        jonne62@gmail.com
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-green-500 hover:text-green-700"
-                                            href="#"
-                                        >
-                                            Edit
-                                        </a>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                        <a
-                                            className="text-red-500 hover:text-red-700"
-                                            href="#"
-                                        >
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            {
+                                animes?.length > 0 ?
+                                    animes.map(item =>
+                                        < tbody className="divide-y divide-gray-200">
+                                            <tr id={item.id_anime}>
+                                                <td className="px-6 py-4 text-sm font-normal text-gray-800 whitespace-nowrap">
+                                                    {item.name_anime}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                                                    {item.rated}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
+                                                    {item.episodes}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                                    {item.date_start.substr(0, 10)}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                                    {item.name_type}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                                    {item.name_rating}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                                    {item.name_status}
+                                                </td>
+                                                <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap">
+                                                    {item.name_season}
+                                                </td>
+                                                {item.genre_list}
+                                                <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
+                                                    <button
+                                                        type="show"
+                                                        className="group relative flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                                    >
+                                                        Show
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    )
+
+
+
+                                    : <p>animes is empty...</p>
+                            }
                         </table>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
         // products.map((product) => (
         //     <div key={product.id} className="group relative">
         //         <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">

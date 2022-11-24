@@ -7,6 +7,8 @@ import SignIn from "./components/SignIn"
 import BottomMenu from "./components/BottomMenu"
 import Anime from "./components/Anime"
 import MainPage from "./components/MainPage"
+import ErrorAuth from "./components/AuthError"
+import Logout from "./components/logout"
 
 function App() {
   return (
@@ -19,23 +21,15 @@ function App() {
 
           <Route path={localStorage.AuthData === undefined ? '/profile/:user' : '/profile/' + localStorage.AuthData} element={<>
             {localStorage.Auth === undefined || localStorage.Auth === 'false' ? (
-              <Navigate replace to="/" />
+              <Navigate replace to="/autherror" />
             ) : (
               <Profile />
             )}<BottomMenu /></>} />
-          <Route path='/signin' element={<>
-            {localStorage.AuthData === undefined ? (
-              <SignIn />
-            ) : (
-              <Navigate replace to={'/profile/' + localStorage.AuthData} />
-            )}<BottomMenu /></>} />
-          <Route path='/signup' element={<>
-            {localStorage.AuthData === undefined ? (
-              <SignUp />
-            ) : (
-              <Navigate replace to={'/profile/' + localStorage.AuthData} />
-            )}<BottomMenu /></>} />
+          <Route path='/signin' element={<><SignIn/><BottomMenu /></>} />
+          <Route path='/signup' element={<><SignUp /><BottomMenu /></>} />
           <Route path='*' element={<><ErrorPath /></>} />
+          <Route path='/autherror' element={<><ErrorAuth /></>} />
+          <Route path='/logout' element={<><Logout/></>} />
         </Routes>
 
       </BrowserRouter>
