@@ -22,10 +22,10 @@ export default function SignUp() {
     event.preventDefault();
 
     const user = {
-      UserName: name,
-      Password: password,
-      ConfirmPassword: cPassword,
-      IdType: 2
+      Login_user: name,
+      Password_user: password,
+      Password_confirmation: cPassword,
+      Id_type: 2
     };
     axios.post(`https://localhost:7278/api/Auth/SignUp`, user)
       .then(res => {
@@ -33,19 +33,19 @@ export default function SignUp() {
       }).then(() => {
         if (localStorage.Registration === 'true') {
           const user = {
-            UserName: name,
-            Password: password,
+            Login_user: name,
+            Password_user: password,
           };
           axios.post(`https://localhost:7278/api/Auth/SignIn`, user)
             .then(res => {
               localStorage.setItem('Auth', res.data.isSuccess)
               if (localStorage.Auth === 'true') {
-                localStorage.setItem('AuthData', user.UserName)
-      
+                localStorage.setItem('AuthData', user.Login_user)
+                localStorage.setItem('AuthId', res.data.id_user)
+                localStorage.removeItem('Registration')
               }
               else {
                 localStorage.removeItem('AuthData')
-      
               }
             }).then(() => {
               window.location.reload()

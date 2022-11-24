@@ -18,14 +18,14 @@ export default function SignIn() {
     event.preventDefault();
 
     const user = {
-      UserName: name,
-      Password: password,
+      Login_user: name,
+      Password_user: password,
     }
     axios.post(`https://localhost:7278/api/Auth/SignIn`, user)
       .then(async (res) => {
         localStorage.setItem('Auth', res.data.isSuccess)
         if (localStorage.Auth === 'true') {
-          localStorage.setItem('AuthData', user.UserName)
+          localStorage.setItem('AuthData', user.Login_user)
           localStorage.setItem('AuthId', res.data.id_user)
         }
         else {
