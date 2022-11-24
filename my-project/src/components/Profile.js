@@ -11,7 +11,7 @@ export default function Profile() {
   }, []);
 
   const checkRedirect = () => {
-    setRedirect(localStorage.Auth !== 'true' ? true : false)
+    setRedirect(localStorage.Auth !== 'true' || window.location.href !== 'http://localhost:3000/profile/' + localStorage.AuthData ? true : false)
   }
   const loadAnimes = async () => {
     const linkId= "https://localhost:7278/api/Anime/List?Id=" + localStorage.AuthId

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Menu from './components/Menu'
 import Profile from "./components/Profile"
 import ErrorPath from "./components/Error"
@@ -18,13 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<><MainPage/><BottomMenu /></>} />
           <Route path='/anime' element={<><Anime /><BottomMenu /></>} />
-
-          <Route path={localStorage.AuthData === undefined ? '/profile/:user' : '/profile/' + localStorage.AuthData} element={<>
-            {localStorage.Auth === undefined || localStorage.Auth === 'false' ? (
-              <Navigate replace to="/autherror" />
-            ) : (
-              <Profile />
-            )}<BottomMenu /></>} />
+          <Route path='/profile/:user' element={<><Profile /><BottomMenu /></>} />
           <Route path='/signin' element={<><SignIn/><BottomMenu /></>} />
           <Route path='/signup' element={<><SignUp /><BottomMenu /></>} />
           <Route path='*' element={<><ErrorPath /></>} />
