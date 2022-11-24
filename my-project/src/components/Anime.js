@@ -75,7 +75,7 @@ export default function Anime() {
                                         scope="col"
                                         className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase "
                                     >
-                                        Genres
+                                        add to your list
                                     </th>
                                 </tr>
                             </thead>
@@ -108,13 +108,12 @@ export default function Anime() {
                                                 <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap">
                                                     {item.name_season}
                                                 </td>
-                                                {item.genre_list}
                                                 <td className="px-6 py-4 text-sm font-medium whitespace-nowrap">
                                                     <button
-                                                        type="show"
+                                                        type="Add"
                                                         className="group relative flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                                                     >
-                                                        Show
+                                                        Add
                                                     </button>
                                                 </td>
                                             </tr>
