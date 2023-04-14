@@ -9,6 +9,7 @@ import Anime from "./components/Anime"
 import MainPage from "./components/MainPage"
 import ErrorAuth from "./components/AuthError"
 import Logout from "./components/logout"
+import Admin from "./components/Admin"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path='*' element={<><ErrorPath /></>} />
           <Route path='/autherror' element={<><ErrorAuth /></>} />
           <Route path='/logout' element={<><Logout/></>} />
+          <Route path='/admin' element={<><Admin/></>} />
         </Routes>
 
       </BrowserRouter>

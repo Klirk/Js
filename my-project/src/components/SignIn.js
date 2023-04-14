@@ -26,6 +26,7 @@ export default function SignIn() {
         localStorage.setItem('Auth', res.data.isSuccess)
         if (localStorage.Auth === 'true') {
           localStorage.setItem('AuthData', user.Login_user)
+          localStorage.setItem('AuthIdType', res.data.id_type)
           localStorage.setItem('AuthId', res.data.id_user)
         }
         else {
